@@ -4,8 +4,9 @@
 </head>
 <body>
     <h2>Test Database Connection</h2>
-    <form action="TestConnectionServlet" method="GET">
+    <form action="/TestConnectionServlet" method="GET">
         <button type="submit">Test Connection</button>
     </form>
 </body>
 </html>
+
