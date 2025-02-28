@@ -1,7 +1,11 @@
 <html>
+<head>
+    <title>Test DB Connection</title>
+</head>
 <body>
-    <h1>Tomcat is running!</h1>
-    <p><a href="TestConnectionServlet">Click here to test MySQL connection</a></p>
+    <h2>Test Database Connection</h2>
+    <form action="TestConnectionServlet" method="GET">
+        <button type="submit">Test Connection</button>
+    </form>
 </body>
 </html>
-

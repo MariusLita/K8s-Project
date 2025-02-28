@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 public class TestConnectionServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String url = "jdbc:mysql://172.17.0.2:3306/testdb";
+        String url = "jdbc:mysql://mysql-cont:3306/testdb";
         String user = "root";
         String password = "root"; // Update with your actual password
 
