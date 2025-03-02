@@ -29,6 +29,25 @@ steps:
       echo "BUILDRUN_HASH: " $BUILDRUN_HASH
 
   - type: Command
+    name: "Install JDK 11"
+    timeoutInSeconds: 40
+    command: |
+      echo Current version is $(java -version 2>&1)
+      echo "Installing JDK 11"
+      yum install -y java-11-openjdk
+      export JAVA_HOME=/usr/lib/jvm/java-11-openjdk
+      export PATH=$JAVA_HOME/bin:$PATH
+      java -version  # Verify JDK version
+
+  - type: Command
+    name: "Build the artifact"
+    timeoutInSeconds: 40
+    command: |
+      echo "Start bulding the artifact"
+      mvn clean package
+      echo "Build succesfully"
+
+  - type: Command
     name: "Build the artifact"
     timeoutInSeconds: 40
     command: |
@@ -44,8 +63,8 @@ steps:
       echo pwd is : $(pwd)
       cd ${OCI_PRIMARY_SOURCE_DIR}
       docker build --pull --rm -t oke_app_base .      
-      docker images
       echo "Succesfully build the image" 
+      docker images
      
 outputArtifacts:
   - name: oke_app_base
