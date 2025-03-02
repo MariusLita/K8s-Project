@@ -13,9 +13,15 @@ import javax.servlet.http.HttpServletResponse;
 public class TestConnectionServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String url = "jdbc:mysql://mysql-cont:3306/testdb";
-        String user = "root";
-        String password = "root"; // Update with your actual password
+       // Get environment variables for MySQL connection
+        String dbHost = System.getenv("DB_HOST");  // MySQL service name in OKE
+        String dbPort = System.getenv("DB_PORT");  // Default is 3306
+        String dbName = System.getenv("DB_NAME");  // Database name
+        String user = System.getenv("DB_USER");    // MySQL username
+        String password = System.getenv("DB_PASS"); // MySQL password
+
+        // Construct the database URL dynamically
+        String url = "jdbc:mysql://" + dbHost + ":" + dbPort + "/" + dbName;
 
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
@@ -27,7 +33,6 @@ public class TestConnectionServlet extends HttpServlet {
             // Establish connection
             Connection conn = DriverManager.getConnection(url, user, password);
             out.println("Tomcat is running<br>");
-            out.println("Click here to test MySQL connection<br>");
             out.println("MySQL Connection Status: Successful");
             conn.close();
         } catch (ClassNotFoundException e) {
