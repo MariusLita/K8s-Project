@@ -84,7 +84,7 @@ outputArtifacts:
     # to the Container Registry
     location: ${OCI_PRIMARY_SOURCE_DIR}/kubeFiles/mysql-init-script.yaml
 
-  - name: mysql-svc.yaml
+  - name: mysql-svc
     type: BINARY
     # this location tag doesn't effect the tag used to deliver the container image
     # to the Container Registry
