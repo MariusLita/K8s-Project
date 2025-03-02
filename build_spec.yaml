@@ -33,11 +33,6 @@ steps:
     timeoutInSeconds: 40
     command: |
       echo Current version is $(java -version 2>&1)
-      echo "Installing JDK 11"
-      yum install -y java-11-openjdk
-      export JAVA_HOME=/usr/lib/jvm/java-11-openjdk
-      export PATH=$JAVA_HOME/bin:$PATH
-      java -version  # Verify JDK version
 
   - type: Command
     name: "Build the artifact"
@@ -46,6 +41,7 @@ steps:
       echo "Start bulding the artifact"
       mvn clean package
       echo "Build succesfully"
+      echo $(ls target)
 
   - type: Command
     name: "Build the artifact"
