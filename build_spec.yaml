@@ -27,7 +27,15 @@ steps:
     command: |
       export BUILDRUN_HASH=`echo ${OCI_BUILD_RUN_ID} | rev | cut -c 1-7`
       echo "BUILDRUN_HASH: " $BUILDRUN_HASH
-      
+
+  - type: Command
+    name: "Build the artifact"
+    timeoutInSeconds: 40
+    command: |
+      echo "Start bulding the artifact"
+      mvn clean package
+      echo "Build succesfully"
+
   - type: Command
     timeoutInSeconds: 1200
     name: "Build container image"
@@ -46,31 +54,31 @@ outputArtifacts:
     # to the Container Registry
     location: oke_app_base:latest
 
-  - name: tomcat-app.yaml
+  - name: tomcat-app
     type: BINARY
     # this location tag doesn't effect the tag used to deliver the container image
     # to the Container Registry
     location: ${OCI_PRIMARY_SOURCE_DIR}/kubefiles/tomcat-app.yaml
 
-  - name: tomcat-svc.yaml
+  - name: tomcat-svc
     type: BINARY
     # this location tag doesn't effect the tag used to deliver the container image
     # to the Container Registry
     location: ${OCI_PRIMARY_SOURCE_DIR}/kubefiles/tomcat-svc.yaml
 
-  - name: secret.yaml
+  - name: secret
     type: BINARY
     # this location tag doesn't effect the tag used to deliver the container image
     # to the Container Registry
     location: ${OCI_PRIMARY_SOURCE_DIR}/kubefiles/secrets.yaml
 
-  - name: mysql-app.yaml
+  - name: mysql-app
     type: BINARY
     # this location tag doesn't effect the tag used to deliver the container image
     # to the Container Registry
     location: ${OCI_PRIMARY_SOURCE_DIR}/kubefiles/mysql-app.yaml
 
-  - name: mysql-init-script.yaml 
+  - name: mysql-init-script 
     type: BINARY
     # this location tag doesn't effect the tag used to deliver the container image
     # to the Container Registry
