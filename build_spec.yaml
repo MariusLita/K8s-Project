@@ -41,15 +41,7 @@ steps:
       echo "Start bulding the artifact"
       mvn clean package
       echo "Build succesfully"
-      echo $(ls target)
-
-  - type: Command
-    name: "Build the artifact"
-    timeoutInSeconds: 40
-    command: |
-      echo "Start bulding the artifact"
-      mvn clean package
-      echo "Build succesfully"
+      ls target
 
   - type: Command
     timeoutInSeconds: 1200
@@ -104,3 +96,15 @@ outputArtifacts:
     # this location tag doesn't effect the tag used to deliver the container image
     # to the Container Registry
     location: ${OCI_PRIMARY_SOURCE_DIR}/kubeFiles/mysql-svc.yaml
+
+  - name: nginx-controller
+    type: BINARY
+    # this location tag doesn't effect the tag used to deliver the container image
+    # to the Container Registry
+    location: ${OCI_PRIMARY_SOURCE_DIR}/kubeFiles/nginx-controller.yaml
+
+  - name: ingress
+    type: BINARY
+    # this location tag doesn't effect the tag used to deliver the container image
+    # to the Container Registry
+    location: ${OCI_PRIMARY_SOURCE_DIR}/kubeFiles/ingress.yaml
