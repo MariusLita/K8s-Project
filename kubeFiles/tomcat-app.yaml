@@ -12,10 +12,10 @@ spec:
         app: myapp
     spec:
       imagePullSecrets:
-      - name: ocirsecret  # Move imagePullSecrets here, not inside containers
+      - name: ocirsecret 
       containers:
       - name: tomcat-application
-        image: bog.ocir.io/ocicustomeropshb/marius-devops:v4
+        image: bog.ocir.io/ocicustomeropshb/marius-oke:${BUILDRUN_HASH}
         resources:
           limits:
             memory: "128Mi"
