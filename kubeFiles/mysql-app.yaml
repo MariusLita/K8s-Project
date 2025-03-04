@@ -17,7 +17,10 @@ spec:
         image: mysql:8
         env:
         - name: MYSQL_ROOT_PASSWORD
-          value: "root"
+          valueFrom:
+            secretKeyRef:
+              name: mysql-secret
+              key: password
         - name: MYSQL_DATABASE
           value: "testdb"
         - name: MYSQL_USER
@@ -40,3 +43,4 @@ spec:
       - name: init-script
         configMap:
           name: mysql-init-script
+

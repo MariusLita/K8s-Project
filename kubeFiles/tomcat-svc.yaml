@@ -10,3 +10,4 @@ spec:
   selector:
     app: myapp
   type: ClusterIP
+  

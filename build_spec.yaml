@@ -4,21 +4,9 @@ timeoutInSeconds: 6000
 runAs: root
 shell: bash
 env:
-  # these are local variables to the build config
-  variables:
-
-  # the value of a vaultVariable is the secret-id (in OCI ID format) stored in the OCI Vault service
-  # you can then access the value of that secret in your build_spec.yaml commands
-  vaultVariables:
-    
-  # exportedVariables are made available to use as parameters in sucessor Build Pipeline stages
-  # For this Build to run, the Build Pipeline needs to have a BUILDRUN_HASH parameter set
   exportedVariables:
     - BUILDRUN_HASH
 
-
-#Its a native way to fetch artifacts from external or artifact repo or a file path to use before a stage.
-# More about buildspec formats - https://docs.oracle.com/en-us/iaas/Content/devops/using/build_specs.htm
 
 steps:
   - type: Command
@@ -29,7 +17,7 @@ steps:
       echo "BUILDRUN_HASH: " $BUILDRUN_HASH
 
   - type: Command
-    name: "Install JDK 11"
+    name: "Check JDK version"
     timeoutInSeconds: 40
     command: |
       echo Current version is $(java -version 2>&1)
@@ -57,54 +45,36 @@ steps:
 outputArtifacts:
   - name: oke_app_base
     type: DOCKER_IMAGE
-    # this location tag doesn't effect the tag used to deliver the container image
-    # to the Container Registry
     location: oke_app_base:latest
 
   - name: tomcat-app
     type: BINARY
-    # this location tag doesn't effect the tag used to deliver the container image
-    # to the Container Registry
     location: ${OCI_PRIMARY_SOURCE_DIR}/kubeFiles/tomcat-app.yaml
 
   - name: tomcat-svc
     type: BINARY
-    # this location tag doesn't effect the tag used to deliver the container image
-    # to the Container Registry
     location: ${OCI_PRIMARY_SOURCE_DIR}/kubeFiles/tomcat-svc.yaml
 
   - name: secret
     type: BINARY
-    # this location tag doesn't effect the tag used to deliver the container image
-    # to the Container Registry
     location: ${OCI_PRIMARY_SOURCE_DIR}/kubeFiles/secret.yaml
 
   - name: mysql-app
     type: BINARY
-    # this location tag doesn't effect the tag used to deliver the container image
-    # to the Container Registry
     location: ${OCI_PRIMARY_SOURCE_DIR}/kubeFiles/mysql-app.yaml
 
   - name: mysql-init-script 
     type: BINARY
-    # this location tag doesn't effect the tag used to deliver the container image
-    # to the Container Registry
     location: ${OCI_PRIMARY_SOURCE_DIR}/kubeFiles/mysql-init-script.yaml
 
   - name: mysql-svc
     type: BINARY
-    # this location tag doesn't effect the tag used to deliver the container image
-    # to the Container Registry
     location: ${OCI_PRIMARY_SOURCE_DIR}/kubeFiles/mysql-svc.yaml
 
   - name: nginx-controller
     type: BINARY
-    # this location tag doesn't effect the tag used to deliver the container image
-    # to the Container Registry
     location: ${OCI_PRIMARY_SOURCE_DIR}/kubeFiles/nginx-controller.yaml
 
   - name: ingress
     type: BINARY
-    # this location tag doesn't effect the tag used to deliver the container image
-    # to the Container Registry
     location: ${OCI_PRIMARY_SOURCE_DIR}/kubeFiles/ingress.yaml
